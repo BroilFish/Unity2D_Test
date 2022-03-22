@@ -4,30 +4,56 @@ using UnityEngine;
 
 public class RubyControl : MonoBehaviour
 {
+    private Rigidbody2D rigidbody2d;
+    public int maxHealth = 5;   // ×î´óÉúÃüÖµ
+    private int currentHealth;  // Rubyµ±Ç°ÉúÃüÖµ
+    public int speed = 3;       // RubyËÙ¶ÈÖµ 
+
+    // ·â×°ÊôĞÔgetºÍset ¿ì½İ¼üCtrl+R Ctrl+E
+    public int Health { get => currentHealth;}
+
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        // »ñÈ¡¸ÕÌå×é¼ş
+        rigidbody2d = GetComponent<Rigidbody2D>();
+        // ÓÎÏ·¿ªÊ¼£¬ÑªÁ¿ÂúÑª
+        currentHealth = maxHealth;
+        currentHealth = 4;
+        //int a = GetRubyHealthValue();
+        Debug.Log("Rubyµ±Ç°µÄÑªÁ¿ÊÇ: " + currentHealth);
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector2 a = transform.position;
-        float h = Input.GetAxis("Horizontal");  //è·å–é”®ç›˜çš„Aã€Dé”®
-        float v = Input.GetAxis("Vertical");     //è·å–é”®ç›˜çš„Wã€Sé”®
-        a.x = a.x + 1f*h*Time.deltaTime;
-        a.y = a.y + 1f*v*Time.deltaTime;
-        Debug.Log(a.x);
-        transform.position=a;
-        // float horizontal = Input.GetAxis("Horizontal");
-        // float vertical = Input.GetAxis("Vertical");
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+        
+        Vector2 position = transform.position;
+        position.x = position.x + speed*horizontal*Time.deltaTime;
+        position.y = position.y + speed * vertical*Time.deltaTime;
 
-        // Vector2 position = transform.position;
-        // position.x = position.x + 0.1f*horizontal*Time.deltaTime;
-        // position.y = position.y + 0.1f*vertical*Time.deltaTime;
-
-        // transform.position = position;
+        //transform.position = position;
+        // Í¨¹ı¸ÕÌåµÄäÖÈ¾½øĞĞÒÆ¶¯
+        rigidbody2d.MovePosition(position);
 
     }
+
+    // ÑªÁ¿¸Ä±äº¯Êı
+    public void ChangeHealth(int amount)
+    {
+        currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
+        Debug.Log("ÑªÁ¿¿ªÊ¼±ä»¯:" + currentHealth + "/" + maxHealth);
+
+    }
+
+    //// »ñÈ¡µ±Ç°RubyÑªÁ¿
+    //private int GetRubyHealthValue()
+    //{
+    //    return currentHealth;
+    //}
+    
 }
