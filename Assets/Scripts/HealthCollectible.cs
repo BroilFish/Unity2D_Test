@@ -1,29 +1,29 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class HealthCollectible : MonoBehaviour
 {
 
-    // Èç¹ûÁíÒ»¸öÅö×²Æ÷ 2D ½øÈëÁË´¥·¢Æ÷£¬Ôòµ÷ÓÃ OnTriggerEnter2D (½öÏŞ 2D ÎïÀí)
+    // å¦‚æœå¦ä¸€ä¸ªç¢°æ’å™¨ 2D è¿›å…¥äº†è§¦å‘å™¨ï¼Œåˆ™è°ƒç”¨ OnTriggerEnter2D (ä»…é™ 2D ç‰©ç†)
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("in OnTriggerEnter2D");
         //Debug.Log(collision);
-        // »ñÈ¡rubyµÄRubyControl×é¼ş£¬collision´ú±írubyµÄÅö×²Ìå
+        // è·å–rubyçš„RubyControlç»„ä»¶ï¼Œcollisionä»£è¡¨rubyçš„ç¢°æ’ä½“
         RubyControl rubyControl = collision.GetComponent<RubyControl>();
-        // µ±Ç°·¢Éú´¥·¢¼ì²âµÄÓÎÏ·ÎïÌå¶ÔÏóÊÇ·ñÓĞRubyControl½Å±¾
+        // å½“å‰å‘ç”Ÿè§¦å‘æ£€æµ‹çš„æ¸¸æˆç‰©ä½“å¯¹è±¡æ˜¯å¦æœ‰RubyControlè„šæœ¬
         if(rubyControl!=null)
         {
             Debug.Log("rubyControl is not null");
-            // rubyÊÇ·ñÂúÑª
+            // rubyæ˜¯å¦æ»¡è¡€
             if (rubyControl.Health < rubyControl.maxHealth)
             {
                 Debug.Log("rubyControl is not null");
-                // rubyÊÇ²»ÂúÑª
-                // Åö×²»ØÑª
+                // rubyæ˜¯ä¸æ»¡è¡€
+                // ç¢°æ’å›è¡€
                 rubyControl.ChangeHealth(1);
-                // Åö×²ºóÏú»Ù(gameObject´ú±íµ±Ç°×é¼şµÄ¶ÔÏó)
+                // ç¢°æ’åé”€æ¯(gameObjectä»£è¡¨å½“å‰ç»„ä»¶çš„å¯¹è±¡)
                 Destroy(this.gameObject);
             }
 
